@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Contador Regressivo</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .contador {
+      display: flex;
+      gap: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .bloco {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .bloco span {
+      display: block;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      font-weight: normal;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contagem Regressiva para o recesso acabar :(</h1>
+  <div class="contador">
+    <div class="bloco"><div id="dias">0</div><span>Dias</span></div>
+    <div class="bloco"><div id="horas">0</div><span>Horas</span></div>
+    <div class="bloco"><div id="minutos">0</div><span>Minutos</span></div>
+    <div class="bloco"><div id="segundos">0</div><span>Segundos</span></div>
+  </div>
+
+  <script>
+    // Defina a data final aqui
+    const dataFinal = new Date("Sep 9, 2025 07:00:00").getTime();
+
+    const atualizarContador = () => {
+      const agora = new Date().getTime();
+      const diferenca = dataFinal - agora;
+
+      if (diferenca <= 0) {
+        document.querySelector(".contador").innerHTML = "<h2>Chegou o grande dia! 🎉</h2>";
+        clearInterval(intervalo);
+        return;
+      }
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+      document.getElementById("dias").textContent = dias;
+      document.getElementById("horas").textContent = horas;
+      document.getElementById("minutos").textContent = minutos;
+      document.getElementById("segundos").textContent = segundos;
+    };
+
+    const intervalo = setInterval(atualizarContador, 1000);
+    atualizarContador(); // Chamada inicial
+  </script>
+</body>
+</html>
